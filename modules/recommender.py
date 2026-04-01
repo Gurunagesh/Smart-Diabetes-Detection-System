@@ -9,7 +9,7 @@
 #       exactly those factors.
 # ============================================================
 
-from config import INDIAN_POPULATION_AVERAGES, SIMULATION_TARGETS
+from config import INDIAN_POPULATION_AVERAGES
 
 
 def generate_insights(form_data: dict,

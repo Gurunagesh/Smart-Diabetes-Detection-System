@@ -13,17 +13,24 @@
 # ============================================================
 
 import streamlit as st
+#import numpy as np
+#import streamlit as st
 import plotly.graph_objects as go
-import numpy as np
 
 from modules.predictor   import load_models, predict
 from modules.recommender import simulate_recovery
 from config              import RISK_COLORS, RISK_ICONS, CATEGORICAL_OPTIONS
 
-st.set_page_config(
-    page_title="What-if Simulator — DiabetesIQ",
-    page_icon="🔮", layout="wide"
-)
+
+from config import THEMES
+from modules.utils import get_theme_css
+
+# Inherit theme from session state (set in app.py)
+theme_name = st.session_state.get('theme_name', 'Dark')
+theme      = THEMES[theme_name]
+st.markdown(get_theme_css(theme), unsafe_allow_html=True)
+
+
 
 if not st.session_state.get('data_submitted'):
     st.warning("⚠️ No patient data found. Please complete Page 1 first.")
@@ -139,8 +146,8 @@ with tab1:
         st.markdown("**Live Risk Comparison:**")
 
         st.markdown(f"""
-        <div class='metric-card' style='border-left-color:#3498db;'>
-            <div style='font-size:13px; color:#7f8c8d;'>
+        <div class='metric-card' style='border-left-color:{theme['accent']}'>
+            <div style='font-size:13px; color:{theme['text_muted']}'>
                 Original Risk</div>
             <div style='font-size:28px; font-weight:700;
                         color:{RISK_COLORS[original["ensemble"]["risk_level"]]};'>
@@ -151,7 +158,7 @@ with tab1:
         </div>
         <div class='metric-card'
              style='border-left-color:{RISK_COLORS[sim_risk]};'>
-            <div style='font-size:13px; color:#7f8c8d;'>
+            <div style='font-size:13px; color:{theme['text_muted']}'>
                 Simulated Risk</div>
             <div style='font-size:28px; font-weight:700;
                         color:{RISK_COLORS[sim_risk]};'>
@@ -161,13 +168,13 @@ with tab1:
         </div>
         <div class='metric-card'
              style='border-left-color:{change_color};'>
-            <div style='font-size:13px; color:#7f8c8d;'>
+            <div style='font-size:13px; color:{theme['text_muted']}'>
                 Risk Change</div>
             <div style='font-size:28px; font-weight:700;
                         color:{change_color};'>
                 {change_sign} {abs(risk_change)*100:.1f}%
             </div>
-            <div style='font-size:12px; color:#7f8c8d;'>
+            <div style='font-size:12px; color:{theme['text_muted']}'>
                 {'Risk decreased ✓' if risk_change < 0
                  else 'Risk increased ⚠️' if risk_change > 0
                  else 'No change'}

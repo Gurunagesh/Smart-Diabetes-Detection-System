@@ -10,8 +10,8 @@
 # ============================================================
 
 import pandas as pd
-import numpy as np
-from config import CATEGORICAL_OPTIONS
+#import numpy as np
+#from config import CATEGORICAL_OPTIONS
 
 
 def build_raw_input(form_data: dict) -> pd.DataFrame:
@@ -209,3 +209,162 @@ def compute_radar_scores(form_data: dict) -> dict:
     scores['Demographic'] = round((age_score * 0.6 + family_score * 0.4), 1)
 
     return scores
+
+
+
+#Theme related code for Block/White Light Theme.
+def get_theme_css(theme: dict) -> str:
+    """
+    Generate complete CSS for the selected theme.
+    Called once per page load and injected via st.markdown().
+
+    WHY single function: All theme-dependent CSS lives here.
+    Pages just call get_theme_css(theme) — no CSS scattered
+    across multiple files.
+    """
+    return f"""
+    <style>
+        /* ── Base & Background ── */
+        .stApp {{
+            background-color: {theme['bg_primary']} !important;
+        }}
+        section[data-testid="stSidebar"] {{
+            background-color: {theme['sidebar_bg']} !important;
+        }}
+        section[data-testid="stSidebar"] * {{
+            color: {theme['sidebar_text']} !important;
+        }}
+        .main .block-container {{
+            background-color: {theme['bg_primary']};
+            padding-top: 2rem;
+        }}
+
+        /* ── Typography ── */
+        .stApp, .stApp p, .stApp li, .stApp label {{
+            color: {theme['text_primary']} !important;
+        }}
+        h1, h2, h3 {{
+            color: {theme['section_header']} !important;
+        }}
+
+        /* ── Input Widgets ── */
+        .stTextInput input, .stNumberInput input,
+        .stSelectbox select, div[data-baseweb="select"] {{
+            background-color: {theme['bg_secondary']} !important;
+            color: {theme['text_primary']} !important;
+            border-color: {theme['border']} !important;
+        }}
+        div[data-baseweb="select"] > div {{
+            background-color: {theme['bg_secondary']} !important;
+            color: {theme['text_primary']} !important;
+        }}
+        .stSlider > div {{
+            color: {theme['text_primary']} !important;
+        }}
+
+        /* ── Metric Cards ── */
+        .metric-card {{
+            background: {theme['bg_card']};
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px {theme['shadow']};
+            border-left: 4px solid {theme['metric_border']};
+            margin-bottom: 16px;
+            color: {theme['text_primary']};
+        }}
+
+        /* ── Section Header ── */
+        .section-header {{
+            font-size: 18px;
+            font-weight: 600;
+            color: {theme['section_header']};
+            border-bottom: 2px solid {theme['accent']};
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+        }}
+
+        /* ── Info / Warning / Insight Boxes ── */
+        .info-box {{
+            background: {theme['info_bg']};
+            border-left: 4px solid {theme['info_border']};
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            font-size: 14px;
+            color: {theme['text_primary']};
+        }}
+        .warning-box {{
+            background: {theme['warning_bg']};
+            border-left: 4px solid {theme['warning_border']};
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            font-size: 14px;
+            color: {theme['text_primary']};
+        }}
+        .insight-box {{
+            background: {theme['insight_bg']};
+            border-left: 4px solid {theme['insight_border']};
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            font-size: 14px;
+            color: {theme['text_primary']};
+        }}
+
+        /* ── Tabs ── */
+        .stTabs [data-baseweb="tab-list"] {{
+            background-color: {theme['bg_secondary']};
+            border-radius: 8px;
+        }}
+        .stTabs [data-baseweb="tab"] {{
+            color: {theme['text_secondary']} !important;
+        }}
+        .stTabs [aria-selected="true"] {{
+            color: {theme['accent']} !important;
+        }}
+
+        /* ── Dataframes & Tables ── */
+        .stDataFrame {{
+            background-color: {theme['bg_card']} !important;
+        }}
+
+        /* ── Plotly chart backgrounds ── */
+        .js-plotly-plot .plotly {{
+            background: transparent !important;
+        }}
+
+        /* ── Code blocks ── */
+        code, pre {{
+            background-color: {theme['code_bg']} !important;
+            color: {theme['text_primary']} !important;
+            border-radius: 6px;
+        }}
+
+        /* ── Buttons ── */
+        .stButton > button {{
+            background-color: {theme['accent']};
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }}
+        .stButton > button:hover {{
+            background-color: {theme['accent']};
+            opacity: 0.85;
+            border: none;
+        }}
+
+        /* ── Metrics ── */
+        [data-testid="metric-container"] {{
+            background-color: {theme['bg_card']};
+            border: 1px solid {theme['border']};
+            border-radius: 10px;
+            padding: 12px;
+        }}
+
+        /* ── Hide default elements ── */
+        #MainMenu {{ visibility: hidden; }}
+        footer    {{ visibility: hidden; }}
+    </style>
+    """

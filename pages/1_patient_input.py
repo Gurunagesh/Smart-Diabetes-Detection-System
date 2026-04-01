@@ -10,12 +10,23 @@
 # ============================================================
 
 import streamlit as st
-from config import CATEGORICAL_OPTIONS, APP_TITLE
+from config import CATEGORICAL_OPTIONS
+from config import THEMES
+from modules.utils import get_theme_css
+
 
 st.set_page_config(
     page_title="Patient Input — DiabetesIQ",
     page_icon="📋", layout="wide"
 )
+
+
+
+# Inherit theme from session state (set in app.py)
+theme_name = st.session_state.get('theme_name', 'Dark')
+theme      = THEMES[theme_name]
+st.markdown(get_theme_css(theme), unsafe_allow_html=True)
+
 
 st.markdown("## 📋 Patient Data Input")
 st.markdown(

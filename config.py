@@ -131,6 +131,71 @@ SIMULATION_TARGETS = {
     'Fasting_Blood_Sugar': (10, 'mg/dL'),
 }
 
+
+# ============================================================
+# THEME CONFIGURATION
+# ============================================================
+# WHAT: CSS variables for light and dark themes
+# WHY:  Centralising theme values means changing a color
+#       here updates it everywhere across all 4 pages.
+# ============================================================
+
+THEMES = {
+    'Light': {
+        'bg_primary'     : '#FFFFFF',
+        'bg_secondary'   : '#F7F9FC',
+        'bg_card'        : '#FFFFFF',
+        'text_primary'   : '#1A202C',
+        'text_secondary' : '#4A5568',
+        'text_muted'     : '#718096',
+        'accent'         : '#3182CE',
+        'accent_light'   : '#EBF8FF',
+        'border'         : '#E2E8F0',
+        'sidebar_bg'     : '#1A202C',
+        'sidebar_text'   : '#FFFFFF',
+        'success'        : '#38A169',
+        'warning'        : '#D69E2E',
+        'danger'         : '#E53E3E',
+        'shadow'         : 'rgba(0,0,0,0.08)',
+        'metric_border'  : '#3182CE',
+        'code_bg'        : '#F7FAFC',
+        'section_header' : '#2D3748',
+        'info_bg'        : '#EBF8FF',
+        'info_border'    : '#3182CE',
+        'warning_bg'     : '#FFFFF0',
+        'warning_border' : '#D69E2E',
+        'insight_bg'     : '#F0FFF4',
+        'insight_border' : '#38A169',
+    },
+    'Dark': {
+        'bg_primary'     : '#0F1117',
+        'bg_secondary'   : '#1A1D26',
+        'bg_card'        : '#1E2130',
+        'text_primary'   : '#F7FAFC',
+        'text_secondary' : '#CBD5E0',
+        'text_muted'     : '#718096',
+        'accent'         : '#63B3ED',
+        'accent_light'   : '#1A365D',
+        'border'         : '#2D3748',
+        'sidebar_bg'     : '#111827',
+        'sidebar_text'   : '#F7FAFC',
+        'success'        : '#68D391',
+        'warning'        : '#F6E05E',
+        'danger'         : '#FC8181',
+        'shadow'         : 'rgba(0,0,0,0.4)',
+        'metric_border'  : '#63B3ED',
+        'code_bg'        : '#171923',
+        'section_header' : '#E2E8F0',
+        'info_bg'        : '#1A365D',
+        'info_border'    : '#63B3ED',
+        'warning_bg'     : '#2D3000',
+        'warning_border' : '#F6E05E',
+        'insight_bg'     : '#1C4532',
+        'insight_border' : '#68D391',
+    }
+}
+
+
 # --- App Metadata ---
 APP_TITLE    = "DiabetesIQ — Smart Diabetes Detection System "
 APP_SUBTITLE = "Personalised diabetes risk analysis for the Indian population"

@@ -11,18 +11,20 @@
 
 import streamlit as st
 import plotly.graph_objects as go
-import matplotlib.pyplot as plt
-import numpy as np
-
+#import matplotlib.pyplot as plt
+#import numpy as np
 from modules.predictor import load_models, predict
 from modules.explainer  import load_explainer, get_shap_values, plot_shap_bar, compute_domain_shap
 from modules.utils      import compute_radar_scores
 from config             import RISK_COLORS, RISK_ICONS
+from config import THEMES
+from modules.utils import get_theme_css
 
-st.set_page_config(
-    page_title="Risk Dashboard — DiabetesIQ",
-    page_icon="📊", layout="wide"
-)
+# Inherit theme from session state (set in app.py)
+theme_name = st.session_state.get('theme_name', 'Dark')
+theme      = THEMES[theme_name]
+st.markdown(get_theme_css(theme), unsafe_allow_html=True)
+
 
 # --- Guard: require form submission ---
 if not st.session_state.get('data_submitted'):
@@ -47,6 +49,9 @@ with st.spinner("Running risk analysis..."):
 st.session_state['results']   = results
 st.session_state['shap_dict'] = shap_dict
 st.session_state['models']    = models
+
+# Define fillcolor based on the theme
+fillcolor = theme.get('accent_light', 'rgba(231, 76, 60, 0.25)')
 
 # ── HEADER ────────────────────────────────────────────────
 st.markdown("## 📊 Risk Dashboard")
@@ -74,12 +79,11 @@ risk_icon  = RISK_ICONS[ens['risk_level']]
 
 with m1:
     st.markdown(f"""
-    <div class='metric-card' style='border-left-color:{risk_color};'>
-        <div style='font-size:13px; color:#7f8c8d;'>Ensemble Risk</div>
+    <div style='font-size:13px; color:{theme['text_muted']};'>
         <div style='font-size:32px; color:{risk_color}; font-weight:700;'>
             {risk_icon} {ens['risk_level']}
         </div>
-        <div style='font-size:22px; font-weight:600; color:#2c3e50;'>
+        <div style='font-size:22px; font-weight:600; color:{theme['text_primary']};'>
             {ens['probability']*100:.1f}%
         </div>
     </div>
@@ -88,9 +92,7 @@ with m1:
 with m2:
     lr_color = RISK_COLORS[lr['risk_level']]
     st.markdown(f"""
-    <div class='metric-card' style='border-left-color:{lr_color};'>
-        <div style='font-size:13px; color:#7f8c8d;'>
-            Logistic Regression</div>
+    <div style='font-size:13px; color:{theme['text_muted']};'>
         <div style='font-size:20px; color:{lr_color}; font-weight:600;'>
             {RISK_ICONS[lr['risk_level']]} {lr['risk_level']}
         </div>
@@ -102,8 +104,7 @@ with m2:
 with m3:
     xgb_color = RISK_COLORS[xgb['risk_level']]
     st.markdown(f"""
-    <div class='metric-card' style='border-left-color:{xgb_color};'>
-        <div style='font-size:13px; color:#7f8c8d;'>XGBoost</div>
+    <div style='font-size:13px; color:{theme['text_muted']};'>
         <div style='font-size:20px; color:{xgb_color}; font-weight:600;'>
             {RISK_ICONS[xgb['risk_level']]} {xgb['risk_level']}
         </div>
@@ -116,8 +117,7 @@ with m4:
     agr_score = agr['score'] * 100
     agr_color = '#2ecc71' if agr_score > 85 else '#f39c12' if agr_score > 60 else '#e74c3c'
     st.markdown(f"""
-    <div class='metric-card' style='border-left-color:{agr_color};'>
-        <div style='font-size:13px; color:#7f8c8d;'>Model Agreement</div>
+    <div style='font-size:13px; color:{agr_color};'>
         <div style='font-size:20px; color:{agr_color}; font-weight:600;'>
             {agr_score:.0f}%</div>
         <div style='font-size:12px; color:#7f8c8d;'>
@@ -129,11 +129,10 @@ with m5:
     top_feat = shap_dict['df'].iloc[0]['Feature'].replace('_', ' ')
     top_pct  = shap_dict['df'].iloc[0]['Contribution_%']
     st.markdown(f"""
-    <div class='metric-card' style='border-left-color:#9b59b6;'>
-        <div style='font-size:13px; color:#7f8c8d;'>Top Risk Driver</div>
+    <div style='font-size:13px; color:{theme['text_muted']};'>
         <div style='font-size:15px; font-weight:600; color:#2c3e50;'>
             {top_feat}</div>
-        <div style='font-size:18px; color:#9b59b6; font-weight:600;'>
+        <div style='font-size:18px; color:{theme['accent']}; font-weight:600;'>
             {top_pct:.1f}% impact</div>
     </div>
     """, unsafe_allow_html=True)
@@ -160,7 +159,7 @@ with radar_col:
         r          = values_closed,
         theta      = categories_closed,
         fill       = 'toself',
-        fillcolor  = f"rgba(231, 76, 60, 0.25)",
+        fillcolor  = fillcolor,
         line       = dict(color='#e74c3c', width=2),
         name       = 'Your Risk Profile'
     ))

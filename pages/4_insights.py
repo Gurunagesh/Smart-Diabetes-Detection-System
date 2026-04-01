@@ -14,10 +14,21 @@ from modules.explainer   import load_explainer, get_shap_values
 from modules.recommender import generate_insights
 from config              import RISK_COLORS, RISK_ICONS, INDIAN_POPULATION_AVERAGES
 
+
+# Move imports to the top
+from config import THEMES
+from modules.utils import get_theme_css
+
+# Ensure imports are at the top
 st.set_page_config(
     page_title="Insights — DiabetesIQ",
     page_icon="💡", layout="wide"
 )
+
+# Inherit theme from session state (set in app.py)
+theme_name = st.session_state.get('theme_name', 'Dark')
+theme      = THEMES[theme_name]
+st.markdown(get_theme_css(theme), unsafe_allow_html=True)
 
 if not st.session_state.get('data_submitted'):
     st.warning("⚠️ No patient data found. Please complete Page 1 first.")
@@ -150,12 +161,12 @@ for i, (feature, avg) in enumerate(
     with bench_cols[i % 3]:
         st.markdown(f"""
         <div class='metric-card' style='border-left-color:{color};'>
-            <div style='font-size:12px; color:#7f8c8d;'>
+            <div style='font-size:12px; color:{theme['text_muted']}'>
                 {feature.replace('_',' ')}</div>
             <div style='font-size:20px; font-weight:700;
-                        color:#2c3e50;'>
+                        color:{theme['text_primary']}'>
                 {user_val:.1f}</div>
-            <div style='font-size:12px; color:#7f8c8d;'>
+            <div style='font-size:12px; color:{theme['text_muted']}'>
                 Indian avg: {avg}</div>
             <div style='font-size:12px; color:{color};
                         font-weight:600;'>
