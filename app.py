@@ -70,11 +70,11 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown(
-        f"<div style='color:{theme['sidebar_text']};'>### 📋 Navigation</div>",
+        f"<div style='color:{theme.get('sidebar_text', '#000000')};'>### 📋 Navigation</div>",
         unsafe_allow_html=True
     )
     st.markdown(f"""
-    <div style='font-size:13px; color:{theme["sidebar_text"]}; line-height:2;'>
+    <div style='font-size:13px; color:{theme.get('sidebar_text', '#000000')}; line-height:2;'>
         1. <b>Patient Input</b> — Clinical &amp; lifestyle data<br>
         2. <b>Risk Dashboard</b> — Risk DNA &amp; model results<br>
         3. <b>What-if Simulator</b> — Explore risk changes live<br>
