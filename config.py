@@ -200,3 +200,7 @@ THEMES = {
 APP_TITLE    = "DiabetesIQ — Smart Diabetes Detection System "
 APP_SUBTITLE = "Personalised diabetes risk analysis for the Indian population"
 APP_VERSION  = "1.0.0"
+THEMES = {
+    "light": "...",
+    "dark": "..."
+}
