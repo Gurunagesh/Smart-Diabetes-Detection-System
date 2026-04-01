@@ -214,6 +214,10 @@ def compute_radar_scores(form_data: dict) -> dict:
 
 #Theme related code for Block/White Light Theme.
 def get_theme_css(theme: dict) -> str:
+
+    if theme is None:
+        return ""
+
     """
     Generate complete CSS for the selected theme.
     Called once per page load and injected via st.markdown().
