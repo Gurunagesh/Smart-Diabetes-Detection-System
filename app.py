@@ -87,7 +87,7 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     st.markdown(f"""
-    <div style='font-size:11px; color:{theme["text_muted"]}; padding:8px 0;'>
+    <div style='font-size:11px; color:{theme.get('text_muted', '#718096')}; padding:8px 0;'>
         <b>Models:</b> Logistic Regression + XGBoost<br>
         <b>Explainability:</b> SHAP TreeExplainer<br>
         <b>Population:</b> ICMR 2023 Indian norms<br><br>
