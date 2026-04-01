@@ -201,6 +201,14 @@ APP_TITLE    = "DiabetesIQ — Smart Diabetes Detection System "
 APP_SUBTITLE = "Personalised diabetes risk analysis for the Indian population"
 APP_VERSION  = "1.0.0"
 THEMES = {
-    "Light": "...",
-    "Dark": "..."
+    "Light": {
+        "bg_primary": "#FFFFFF",
+        "text_color": "#000000",
+        # ... other keys
+    },
+    "Dark": {
+        "bg_primary": "#121212",
+        "text_color": "#FFFFFF",
+        # ... other keys
+    }
 }
