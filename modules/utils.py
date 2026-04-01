@@ -40,44 +40,61 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # --- BMI Category (Indian thresholds — ICMR 2023) ---
     def bmi_category(bmi):
-        if bmi < 18.5:    return 'Underweight'
-        elif bmi < 23:    return 'Normal'
-        elif bmi < 27.5:  return 'Overweight'
-        else:             return 'Obese'
+        if bmi < 18.5:
+            return 'Underweight'
+        elif bmi < 23:
+            return 'Normal'
+        elif bmi < 27.5:
+            return 'Overweight'
+        else:
+            return 'Obese'
 
     df['BMI_Category'] = df['BMI'].apply(bmi_category)
 
     # --- Age Group ---
     def age_group(age):
-        if age < 30:    return 'Young'
-        elif age < 45:  return 'Middle'
-        else:           return 'Senior'
+        if age < 30:
+            return 'Young'
+        elif age < 45:
+            return 'Middle'
+        else:
+            return 'Senior'
 
     df['Age_Group'] = df['Age'].apply(age_group)
 
     # --- HbA1c Category (WHO diagnostic bands) ---
     def hba1c_category(val):
-        if val < 5.7:   return 'Normal'
-        elif val < 6.5: return 'Pre_Diabetic'
-        else:           return 'Diabetic_Range'
+        if val < 5.7:
+            return 'Normal'
+        elif val < 6.5:
+            return 'Pre_Diabetic'
+        else:
+            return 'Diabetic_Range'
 
     df['HbA1c_Category'] = df['HBA1C'].apply(hba1c_category)
 
     # --- Fasting Blood Sugar Category ---
     def fbs_category(val):
-        if val < 100:   return 'Normal'
-        elif val < 126: return 'Pre_Diabetic'
-        else:           return 'Diabetic_Range'
+        if val < 100:
+            return 'Normal'
+        elif val < 126:
+            return 'Pre_Diabetic'
+        else:
+            return 'Diabetic_Range'
 
     df['FBS_Category'] = df['Fasting_Blood_Sugar'].apply(fbs_category)
 
     # --- Lifestyle Risk Score ---
     def lifestyle_risk(row):
         score = 0
-        if row['Smoking_Status'] in ['Current', 'Former']:  score += 1
-        if row['Alcohol_Intake'] in ['Heavy', 'Moderate']:  score += 1
-        if row['Physical_Activity'] == 'Low':               score += 1
-        if row['Stress_Level'] == 'High':                   score += 1
+        if row['Smoking_Status'] in ['Current', 'Former']:
+            score += 1
+        if row['Alcohol_Intake'] in ['Heavy', 'Moderate']:
+            score += 1
+        if row['Physical_Activity'] == 'Low':
+            score += 1
+        if row['Stress_Level'] == 'High':
+            score += 1
         return score
 
     df['Lifestyle_Risk_Score'] = df.apply(lifestyle_risk, axis=1)
@@ -85,10 +102,14 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     # --- Comorbidity Score ---
     def comorbidity(row):
         score = 0
-        if row['Hypertension'] == 'Yes':                      score += 1
-        if row['Thyroid_Condition'] == 'Yes':                 score += 1
-        if str(row['Polycystic_Ovary_Syndrome']) == 'Yes':    score += 1
-        if row['Medication_For_Chronic_Conditions'] == 'Yes': score += 1
+        if row['Hypertension'] == 'Yes':
+            score += 1
+        if row['Thyroid_Condition'] == 'Yes':
+            score += 1
+        if str(row['Polycystic_Ovary_Syndrome']) == 'Yes':
+            score += 1
+        if row['Medication_For_Chronic_Conditions'] == 'Yes':
+            score += 1
         return score
 
     df['Comorbidity_Score'] = df.apply(comorbidity, axis=1)
@@ -152,9 +173,12 @@ def encode_and_scale(df: pd.DataFrame,
 
 def get_risk_level(probability: float) -> str:
     """Convert raw probability to Low / Medium / High."""
-    if probability < 0.30:   return 'Low'
-    elif probability < 0.60: return 'Medium'
-    else:                    return 'High'
+    if probability < 0.30:
+        return 'Low'
+    elif probability < 0.60:
+        return 'Medium'
+    else:
+        return 'High'
 
 
 def compute_radar_scores(form_data: dict) -> dict:
@@ -230,107 +254,107 @@ def get_theme_css(theme: dict) -> str:
     <style>
         /* ── Base & Background ── */
         .stApp {{
-            background-color: {theme['bg_primary']} !important;
+            background-color: {theme.get('bg_primary', '#FFFFFF')} !important;
         }}
         section[data-testid="stSidebar"] {{
-            background-color: {theme['sidebar_bg']} !important;
+            background-color: {theme.get('sidebar_bg', '#F7F9FC')} !important;
         }}
         section[data-testid="stSidebar"] * {{
-            color: {theme['sidebar_text']} !important;
+            color: {theme.get('sidebar_text', '#000000')} !important;
         }}
         .main .block-container {{
-            background-color: {theme['bg_primary']};
+            background-color: {theme.get('bg_primary', '#FFFFFF')};
             padding-top: 2rem;
         }}
 
         /* ── Typography ── */
         .stApp, .stApp p, .stApp li, .stApp label {{
-            color: {theme['text_primary']} !important;
+            color: {theme.get('text_primary', '#000000')} !important;
         }}
         h1, h2, h3 {{
-            color: {theme['section_header']} !important;
+            color: {theme.get('section_header', '#000000')} !important;
         }}
 
         /* ── Input Widgets ── */
         .stTextInput input, .stNumberInput input,
         .stSelectbox select, div[data-baseweb="select"] {{
-            background-color: {theme['bg_secondary']} !important;
-            color: {theme['text_primary']} !important;
-            border-color: {theme['border']} !important;
+            background-color: {theme.get('bg_secondary', '#F5F5F5')} !important;
+            color: {theme.get('text_primary', '#000000')} !important;
+            border-color: {theme.get('border', '#000000')} !important;
         }}
         div[data-baseweb="select"] > div {{
-            background-color: {theme['bg_secondary']} !important;
-            color: {theme['text_primary']} !important;
+            background-color: {theme.get('bg_secondary', '#F5F5F5')} !important;
+            color: {theme.get('text_primary', '#000000')} !important;
         }}
         .stSlider > div {{
-            color: {theme['text_primary']} !important;
+            color: {theme.get('text_primary', '#000000')} !important;
         }}
 
         /* ── Metric Cards ── */
         .metric-card {{
-            background: {theme['bg_card']};
+            background: {theme.get('bg_card', '#FFFFFF')};
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 8px {theme['shadow']};
-            border-left: 4px solid {theme['metric_border']};
+            box-shadow: 0 2px 8px {theme.get('shadow', '#000000')};
+            border-left: 4px solid {theme.get('metric_border', '#000000')};
             margin-bottom: 16px;
-            color: {theme['text_primary']};
+            color: {theme.get('text_primary', '#000000')};
         }}
 
         /* ── Section Header ── */
         .section-header {{
             font-size: 18px;
             font-weight: 600;
-            color: {theme['section_header']};
-            border-bottom: 2px solid {theme['accent']};
+            color: {theme.get('section_header', '#000000')};
+            border-bottom: 2px solid {theme.get('accent', '#000000')};
             padding-bottom: 6px;
             margin-bottom: 16px;
         }}
 
         /* ── Info / Warning / Insight Boxes ── */
         .info-box {{
-            background: {theme['info_bg']};
-            border-left: 4px solid {theme['info_border']};
+            background: {theme.get('info_bg', '#FFFFFF')};
+            border-left: 4px solid {theme.get('info_border', '#000000')};
             border-radius: 6px;
             padding: 12px 16px;
             margin: 8px 0;
             font-size: 14px;
-            color: {theme['text_primary']};
+            color: {theme.get('text_primary', '#000000')};
         }}
         .warning-box {{
-            background: {theme['warning_bg']};
-            border-left: 4px solid {theme['warning_border']};
+            background: {theme.get('warning_bg', '#FFFFFF')};
+            border-left: 4px solid {theme.get('warning_border', '#000000')};
             border-radius: 6px;
             padding: 12px 16px;
             margin: 8px 0;
             font-size: 14px;
-            color: {theme['text_primary']};
+            color: {theme.get('text_primary', '#000000')};
         }}
         .insight-box {{
-            background: {theme['insight_bg']};
-            border-left: 4px solid {theme['insight_border']};
+            background: {theme.get('insight_bg', '#FFFFFF')};
+            border-left: 4px solid {theme.get('insight_border', '#000000')};
             border-radius: 6px;
             padding: 12px 16px;
             margin: 8px 0;
             font-size: 14px;
-            color: {theme['text_primary']};
+            color: {theme.get('text_primary', '#000000')};
         }}
 
         /* ── Tabs ── */
         .stTabs [data-baseweb="tab-list"] {{
-            background-color: {theme['bg_secondary']};
+            background-color: {theme.get('bg_secondary', '#F5F5F5')};
             border-radius: 8px;
         }}
         .stTabs [data-baseweb="tab"] {{
-            color: {theme['text_secondary']} !important;
+            color: {theme.get('text_secondary', '#000000')} !important;
         }}
         .stTabs [aria-selected="true"] {{
-            color: {theme['accent']} !important;
+            color: {theme.get('accent', '#000000')} !important;
         }}
 
         /* ── Dataframes & Tables ── */
         .stDataFrame {{
-            background-color: {theme['bg_card']} !important;
+            background-color: {theme.get('bg_card', '#FFFFFF')} !important;
         }}
 
         /* ── Plotly chart backgrounds ── */
@@ -340,29 +364,29 @@ def get_theme_css(theme: dict) -> str:
 
         /* ── Code blocks ── */
         code, pre {{
-            background-color: {theme['code_bg']} !important;
-            color: {theme['text_primary']} !important;
+            background-color: {theme.get('code_bg', '#FFFFFF')} !important;
+            color: {theme.get('text_primary', '#000000')} !important;
             border-radius: 6px;
         }}
 
         /* ── Buttons ── */
         .stButton > button {{
-            background-color: {theme['accent']};
+            background-color: {theme.get('accent', '#000000')};
             color: #FFFFFF;
             border: none;
             border-radius: 8px;
             font-weight: 600;
         }}
         .stButton > button:hover {{
-            background-color: {theme['accent']};
+            background-color: {theme.get('accent', '#000000')};
             opacity: 0.85;
             border: none;
         }}
 
         /* ── Metrics ── */
         [data-testid="metric-container"] {{
-            background-color: {theme['bg_card']};
-            border: 1px solid {theme['border']};
+            background-color: {theme.get('bg_card', '#FFFFFF')};
+            border: 1px solid {theme.get('border', '#000000')};
             border-radius: 10px;
             padding: 12px;
         }}
