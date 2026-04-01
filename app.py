@@ -99,11 +99,11 @@ with st.sidebar:
 st.markdown(f"""
 <div style='text-align:center; padding:40px 0 24px;'>
     <div style='font-size:52px;'>🩺</div>
-    <h1 style='font-size:34px; color:{theme["text_primary"]};
+    <h1 style='font-size:34px; color:{theme.get('text_primary', '#000000')};
                font-weight:700; margin:12px 0 8px;'>
         {APP_TITLE}
     </h1>
-    <p style='font-size:15px; color:{theme["text_secondary"]};
+    <p style='font-size:15px; color:{theme.get('text_secondary', '#4A5568')};
               max-width:560px; margin:0 auto;'>
         {APP_SUBTITLE}
     </p>
@@ -128,10 +128,10 @@ for col, (icon, title, desc) in zip([c1, c2, c3, c4], cards):
         <div class='metric-card'>
             <div style='font-size:26px;'>{icon}</div>
             <div style='font-weight:600; margin-top:8px;
-                        color:{theme["text_primary"]};
+                        color:{theme.get('text_primary', '#000000')};
                         font-size:14px;'>{title}</div>
             <div style='font-size:12px;
-                        color:{theme["text_secondary"]};
+                        color:{theme.get('text_secondary', '#4A5568')};
                         margin-top:4px;'>{desc}</div>
         </div>
         """, unsafe_allow_html=True)
