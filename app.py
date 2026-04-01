@@ -49,7 +49,7 @@ with st.sidebar:
             st.rerun()
 
     st.markdown(
-        f"<hr style='border-color:{theme['border']};margin:12px 0;'>",
+        f"<hr style='border-color:{theme.get('border', '#E2E8F0')};margin:12px 0;'>",
         unsafe_allow_html=True
     )
 
@@ -58,15 +58,15 @@ with st.sidebar:
     <div style='text-align:center; padding: 10px 0;'>
         <div style='font-size:38px;'>🩺</div>
         <div style='font-size:17px; font-weight:700;
-                    color:{theme["sidebar_text"]};'>
+                    color:{theme.get('sidebar_text', '#000000')};'>
             {APP_TITLE}
         </div>
-        <div style='font-size:11px; color:{theme["text_muted"]};
+        <div style='font-size:11px; color:{theme.get('text_muted', '#718096')};
                     margin-top:4px;'>{APP_SUBTITLE}</div>
-        <div style='font-size:10px; color:{theme["text_muted"]};
+        <div style='font-size:10px; color:{theme.get('text_muted', '#718096')};
                     margin-top:6px;'>v{APP_VERSION}</div>
     </div>
-    <hr style='border-color:{theme["border"]}; margin:10px 0;'>
+    <hr style='border-color:{theme.get('border', '#E2E8F0')}; margin:10px 0;'>
     """, unsafe_allow_html=True)
 
     st.markdown(
@@ -83,7 +83,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown(
-        f"<hr style='border-color:{theme['border']};'>",
+        f"<hr style='border-color:{theme.get('border', '#E2E8F0')};'>",
         unsafe_allow_html=True
     )
     st.markdown(f"""
