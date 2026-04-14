@@ -151,7 +151,7 @@ THEMES = {
         'accent'         : '#3182CE',
         'accent_light'   : '#EBF8FF',
         'border'         : '#E2E8F0',
-        'sidebar_bg'     : '#1A202C',
+        'sidebar_bbar_bg'     '     : '#1A202C',
         'sidebar_text'   : '#FFFFFF',
         'success'        : '#38A169',
         'warning'        : '#D69E2E',
@@ -200,15 +200,15 @@ THEMES = {
 APP_TITLE    = "DiabetesIQ — Smart Diabetes Detection System "
 APP_SUBTITLE = "Personalised diabetes risk analysis for the Indian population"
 APP_VERSION  = "1.0.0"
-THEMES = {
-    "Light": {
-        "bg_primary": "#FFFFFF",
-        "text_color": "#000000",
-        # ... other keys
-    },
-    "Dark": {
-        "bg_primary": "#121212",
-        "text_color": "#FFFFFF",
-        # ... other keys
-    }
-}
+# THEMES = {
+#     "Light": {
+#         "bg_primary": "#FFFFFF",
+#         "text_color": "#000000",
+#         # ... other keys
+#     },
+#     "Dark": {
+#         "bg_primary": "#121212",
+#         "text_color": "#FFFFFF",
+#         # ... other keys
+#     }
+# }
