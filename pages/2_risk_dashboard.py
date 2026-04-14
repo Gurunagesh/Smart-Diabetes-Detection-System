@@ -79,7 +79,7 @@ risk_icon  = RISK_ICONS[ens['risk_level']]
 
 with m1:
     st.markdown(f"""
-    <div style='font-size:13px; color:{theme['text_muted']};'>
+    <div style='font-size:13px; color:{theme.get('text_muted', '#718096')};'>
         <div style='font-size:32px; color:{risk_color}; font-weight:700;'>
             {risk_icon} {ens['risk_level']}
         </div>
@@ -92,7 +92,7 @@ with m1:
 with m2:
     lr_color = RISK_COLORS[lr['risk_level']]
     st.markdown(f"""
-    <div style='font-size:13px; color:{theme['text_muted']};'>
+    <div style='font-size:13px; color:{theme.get('text_muted', '#718096')};'>
         <div style='font-size:20px; color:{lr_color}; font-weight:600;'>
             {RISK_ICONS[lr['risk_level']]} {lr['risk_level']}
         </div>
@@ -104,7 +104,7 @@ with m2:
 with m3:
     xgb_color = RISK_COLORS[xgb['risk_level']]
     st.markdown(f"""
-    <div style='font-size:13px; color:{theme['text_muted']};'>
+    <div style='font-size:13px; color:{theme.get('text_muted', '#718096')};'>
         <div style='font-size:20px; color:{xgb_color}; font-weight:600;'>
             {RISK_ICONS[xgb['risk_level']]} {xgb['risk_level']}
         </div>
@@ -129,10 +129,10 @@ with m5:
     top_feat = shap_dict['df'].iloc[0]['Feature'].replace('_', ' ')
     top_pct  = shap_dict['df'].iloc[0]['Contribution_%']
     st.markdown(f"""
-    <div style='font-size:13px; color:{theme['text_muted']};'>
+    <div style='font-size:13px; color:{theme.get('text_muted', '#718096')};'>
         <div style='font-size:15px; font-weight:600; color:#2c3e50;'>
             {top_feat}</div>
-        <div style='font-size:18px; color:{theme['accent']}; font-weight:600;'>
+        <div style='font-size:18px; color:{theme.get('accent', '#3182CE')}; font-weight:600;'>
             {top_pct:.1f}% impact</div>
     </div>
     """, unsafe_allow_html=True)

@@ -396,3 +396,7 @@ def get_theme_css(theme: dict) -> str:
         footer    {{ visibility: hidden; }}
     </style>
     """
+    # /* Navigation Bar Text */
+    #     .stSidebar .block-container .element-container:first-child * {
+    #         color: {theme.get('sidebar_text', '#000000')} !important;
+    #     }
