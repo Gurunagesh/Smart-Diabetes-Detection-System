@@ -161,12 +161,12 @@ for i, (feature, avg) in enumerate(
     with bench_cols[i % 3]:
         st.markdown(f"""
         <div class='metric-card' style='border-left-color:{color};'>
-            <div style='font-size:12px; color:{theme['text_muted']}'>
+            <div style='font-size:12px; color:{theme.get('text_muted', '#718096')}'>
                 {feature.replace('_',' ')}</div>
             <div style='font-size:20px; font-weight:700;
                         color:{theme['text_primary']}'>
                 {user_val:.1f}</div>
-            <div style='font-size:12px; color:{theme['text_muted']}'>
+            <div style='font-size:12px; color:{theme.get('text_muted', '#718096')}'>
                 Indian avg: {avg}</div>
             <div style='font-size:12px; color:{color};
                         font-weight:600;'>

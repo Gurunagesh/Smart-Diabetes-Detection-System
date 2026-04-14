@@ -146,8 +146,8 @@ with tab1:
         st.markdown("**Live Risk Comparison:**")
 
         st.markdown(f"""
-        <div class='metric-card' style='border-left-color:{theme['accent']}'>
-            <div style='font-size:13px; color:{theme['text_muted']}'>
+        <div class='metric-card' style='border-left-color:{theme.get('accent', '#3182CE')}'>
+            <div style='font-size:13px; color:{theme.get('text_muted', '#718096')}'>
                 Original Risk</div>
             <div style='font-size:28px; font-weight:700;
                         color:{RISK_COLORS[original["ensemble"]["risk_level"]]};'>
@@ -158,7 +158,7 @@ with tab1:
         </div>
         <div class='metric-card'
              style='border-left-color:{RISK_COLORS[sim_risk]};'>
-            <div style='font-size:13px; color:{theme['text_muted']}'>
+            <div style='font-size:13px; color:{theme.get('text_muted', '#718096')}'>
                 Simulated Risk</div>
             <div style='font-size:28px; font-weight:700;
                         color:{RISK_COLORS[sim_risk]};'>
@@ -168,13 +168,13 @@ with tab1:
         </div>
         <div class='metric-card'
              style='border-left-color:{change_color};'>
-            <div style='font-size:13px; color:{theme['text_muted']}'>
+            <div style='font-size:13px; color:{theme.get('text_muted', '#718096')}'>
                 Risk Change</div>
             <div style='font-size:28px; font-weight:700;
                         color:{change_color};'>
                 {change_sign} {abs(risk_change)*100:.1f}%
             </div>
-            <div style='font-size:12px; color:{theme['text_muted']}'>
+            <div style='font-size:12px; color:{theme.get('text_muted', '#718096')}'>
                 {'Risk decreased ✓' if risk_change < 0
                  else 'Risk increased ⚠️' if risk_change > 0
                  else 'No change'}
